@@ -4,6 +4,7 @@ import (
 	"fmt"
 
 	"github.com/Saatvik-droid/url-shortner/model"
+	"github.com/Saatvik-droid/url-shortner/utils"
 	"github.com/gofiber/fiber/v2"
 )
 
@@ -30,7 +31,11 @@ func Redirect(c *fiber.Ctx) error {
 	url := c.Params("redirect")
 
 	tx := model.DB.Where("url = ?", url).First(&Url)
-	fmt.Println(Url)
+	if utils.IsZeroOfUnderlyingType(Url) {
+		return c.Status(fiber.StatusNotFound).JSON(fiber.Map{
+			"message": "Link not found",
+		})
+	}
 	if tx.Error != nil {
 		return c.Status(fiber.StatusInternalServerError).JSON(fiber.Map{
 			"message": tx.Error,
