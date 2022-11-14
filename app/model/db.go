@@ -3,6 +3,7 @@ package model
 import (
 	"fmt"
 
+	"github.com/Saatvik-droid/url-shortner/utils"
 	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
 )
@@ -18,9 +19,12 @@ var DB *gorm.DB
 
 func SetupDatabase() {
 	var err error
-	dsn := "postgres://tqxfasce:nuSeNzOZMz1EKttgADnRiUNJ7w7KFcma@tiny.db.elephantsql.com/tqxfasce"
 
-	DB, err = gorm.Open(postgres.Open(dsn), &gorm.Config{})
+	config, err := utils.LoadConfig()
+	if err != nil {
+		fmt.Println(err)
+	}
+	DB, err = gorm.Open(postgres.Open(config.DSN), &gorm.Config{})
 	if err != nil {
 		panic(err)
 	}
