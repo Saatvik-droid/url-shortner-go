@@ -8,5 +8,5 @@ import (
 
 func SetupRoutes(router fiber.Router) {
 	router.Post("/create", controller.CreateUrl)
-	router.Get("/redirect/:redirect", controller.Redirect)
+	router.Get("/:redirect", controller.Redirect)
 }
