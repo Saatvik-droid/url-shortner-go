@@ -8,4 +8,4 @@ Create a `.env` file with `DSN` for your databse connection string.
 
 ### Running the server
 
-Change into the app directory and run `go run .`
+Change into the `app` directory and run `go run .`
